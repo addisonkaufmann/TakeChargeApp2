@@ -49,6 +49,16 @@ $toolbar-ios-title-text-color: color($colors, light);
 $toolbar-wp-title-text-color: color($colors, light);
 $text-color: color($colors, dark);
 
+// @font-face {
+// 	font-family: "Samplino";
+
+// }
+$font-family-base: "Lato";
+
+$font-family-ios-base: "Lato", -apple-system, "Helvetica Neue", "Roboto", sans-serif;
+$font-family-md-base: "Lato", "Roboto", "Helvetica Neue", sans-serif;
+$font-family-wp-base: "Lato", "Segoe UI", "Noto Sans", sans-serif;
+
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
