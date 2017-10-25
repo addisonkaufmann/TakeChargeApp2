@@ -10,6 +10,7 @@ import { SurveyModalPage } from '../survey-modal/survey-modal';
 })
 export class SurveyPage {
 
+
 	startSurvey(): void {
 		const modal = this.modalCtrl.create(SurveyModalPage);
 		modal.onDidDismiss(data => {
