@@ -13,7 +13,7 @@
 <ion-content padding>
 	<div *ngIf="step == 1">
 		<h2>How did you feel today?</h2>
-		<h4 style="text-align: center;">{{moodStrings[model.mood-1]}}</h4>  
+		<h4 style="text-align: center;">{{model.moodStrings[model.mood-1]}}</h4>  
 		<ion-item>
 			<ion-range 	
 				class="form-control" 
@@ -55,7 +55,7 @@
 
 	<div *ngIf="step == 3">
 		<h2>How well did you sleep?</h2>
-		<h4 style="text-align: center;">{{sleepStrings[model.sleepQuality -1]}}</h4>  
+		<h4 style="text-align: center;">{{model.sleepStrings[model.sleepQuality -1]}}</h4>  
 		<ion-item>
 			<ion-range 	
 				class="form-control" 
@@ -78,7 +78,7 @@
 
 	<div *ngIf="step == 4">
 		<h2>Overall, how were your social interactions today?</h2>
-		<h4 style="text-align: center;">{{socialStrings[model.social-1]}}</h4>  
+		<h4 style="text-align: center;">{{model.socialStrings[model.social-1]}}</h4>  
 		<ion-item>
 			<ion-range 	
 				class="form-control" 

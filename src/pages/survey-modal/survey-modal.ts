@@ -15,10 +15,7 @@ import { Survey } from '../../models/survey.model';
 })
 export class SurveyModalPage {
 
-	model = new Survey(4, "Average", 8, 4, "Average", 4, "Average");
-	readonly moodStrings = ['Very Bad', 'Bad', 'Not So Good', 'Fine', 'Good', 'Very Good', 'Great'];
-	readonly sleepStrings = ['Very Bad', 'Bad', 'Not So Good', 'Fine', 'Good', 'Very Good', 'Great'];
-	readonly socialStrings = ['Very Bad', 'Bad', 'Not So Good', 'Fine', 'Good', 'Very Good', 'Great'];
+	model = new Survey();
 	step = 1;
 
 	closeModal(data): void {
@@ -26,6 +23,7 @@ export class SurveyModalPage {
 	};
 
 	finishSurvey(): void {
+		this.model.prepare();
 		this.closeModal(this.model);
 	};
 
