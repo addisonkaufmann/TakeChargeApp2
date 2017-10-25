@@ -1,16 +1,38 @@
  <ion-header>
-    <ion-navbar>
-      	<ion-title>Add Event</ion-title>
-      	<ion-buttons end>
-		 	<button ion-button icon-only (click)="closeModal()">
-	        	<ion-icon name="close" ></ion-icon>
-	      	</button>
-	    </ion-buttons>
-    </ion-navbar>
-    
+	<ion-navbar>
+		<ion-title>Add Event</ion-title>
+		<ion-buttons end>
+			<button ion-button icon-only (click)="closeModal()">
+				<ion-icon name="close" ></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+	
   </ion-header>
 
 
 <ion-content padding>
-  <h1>Modal</h1>
+	<ion-list>
+		<ion-item>
+			<ion-label floating>Title</ion-label>
+			<ion-input [(ngModel)]="model.title" type="text"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label floating>Details</ion-label>
+			<ion-input [(ngModel)]="model.details" type="text"></ion-input>
+		</ion-item>
+	</ion-list>
+
+
+	<ion-list radio-group [(ngModel)]="model.type">
+		<p style="margin-top: 50px; margin-bottom: 0; opacity: 0.6; padding-left: 16px; text-transform: uppercase;">Event Type</p>
+		<ion-item *ngFor="let choice of model.typeChoices"> 
+			<ion-label>{{choice}}</ion-label>
+			<ion-radio value="{{choice}}"></ion-radio>
+		</ion-item>
+	</ion-list>
+
+	<button ion-button block (click)="finishEvent();" [disabled]="model.title.length == 0 || model.details.length == 0 || model.type.length == 0" >Finish</button>
+		
+
 </ion-content>

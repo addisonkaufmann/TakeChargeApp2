@@ -1,16 +1,30 @@
  <ion-header>
-    <ion-navbar>
-      	<ion-title>Add Note</ion-title>
-      	<ion-buttons end>
-		 	<button ion-button icon-only (click)="closeModal()">
-	        	<ion-icon name="close" ></ion-icon>
-	      	</button>
-	    </ion-buttons>
-    </ion-navbar>
-    
+  <ion-navbar>
+    <ion-title>Add Note</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="closeModal()">
+        <ion-icon name="close" ></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  
   </ion-header>
 
 
 <ion-content padding>
-  <h1>Modal</h1>
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Title</ion-label>
+      <ion-input [(ngModel)]="model.title" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Details</ion-label>
+      <ion-input [(ngModel)]="model.details" type="text"></ion-input>
+    </ion-item>
+  </ion-list>
+
+
+  <button ion-button block (click)="finishEvent();" [disabled]="model.title.length == 0 || model.details.length == 0" >Finish</button>
+    
+
 </ion-content>

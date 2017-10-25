@@ -15,8 +15,8 @@ import { Survey } from '../../models/survey.model';
 })
 export class SurveyModalPage {
 
-	model = new Survey();
-	step = 1;
+	model: Survey = new Survey();
+	step: number = 1;
 
 	closeModal(data): void {
 		this.viewCtrl.dismiss(data);

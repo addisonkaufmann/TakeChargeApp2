@@ -20,7 +20,7 @@ export class DayPage {
 	viewDate: any = null;
 
 	createEvent(): void {
-		const modal = this.modalCtrl.create(EventModalPage);
+		const modal = this.modalCtrl.create(EventModalPage, this.viewDate);
 		modal.onDidDismiss(data => {
 			console.log(data);
 	    });
@@ -29,7 +29,7 @@ export class DayPage {
 	};
 
 	createNote(): void {
-		const modal = this.modalCtrl.create(NoteModalPage, { userId: 8675309 });
+		const modal = this.modalCtrl.create(NoteModalPage, this.viewDate);
 		modal.onDidDismiss(data => {
 			console.log(data);
 	    });
