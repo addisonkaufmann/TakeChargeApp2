@@ -22,7 +22,7 @@ export class NoteModalPage {
 		this.viewCtrl.dismiss(data);
 	};
 
-	finishEvent(): void {
+	finishNote(): void {
 		this.closeModal(this.model);
 	};
 	
