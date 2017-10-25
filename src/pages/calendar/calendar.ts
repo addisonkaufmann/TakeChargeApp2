@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { DayPage } from '../day/day';
 
-import { CalendarEvent, CalendarDateFormatter } from 'angular-calendar';
+import { CalendarDateFormatter } from 'angular-calendar';
 import { CustomDateFormatter } from '../../providers/custom-date-formatter.provider';
 
 
