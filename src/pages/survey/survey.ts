@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
+import { SurveyModalPage } from '../survey-modal/survey-modal';
 
 
 
@@ -9,5 +10,14 @@ import { NavController } from 'ionic-angular';
 })
 export class SurveyPage {
 
-	constructor(public navCtrl: NavController) {}	
+	startSurvey(): void {
+		const modal = this.modalCtrl.create(SurveyModalPage);
+		modal.onDidDismiss(data => {
+			console.log(data);
+	    });
+   		modal.present();
+
+	};
+
+	constructor(public navCtrl: NavController, public modalCtrl: ModalController) {}	
 }

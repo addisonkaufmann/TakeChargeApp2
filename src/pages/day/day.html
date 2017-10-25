@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{ viewDate | date:'mediumDate' }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+	<button ion-button (click)="createEvent();">+ Add Event</button>
+	<button ion-button (click)="createNote();">+ Add Note</button>
+  <mwl-calendar-day-view
+    [viewDate]="viewDate">
+  </mwl-calendar-day-view>
+</ion-content>
