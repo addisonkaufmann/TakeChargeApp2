@@ -1,3 +1,16 @@
 page-calendar{
 
+	.cal-cell-top{
+		position: relative;
+	}
+
+	.cal-day-number {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		margin: 0 !important;
+		float: none !important;
+	}
+
 }
