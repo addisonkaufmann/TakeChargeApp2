@@ -5,7 +5,7 @@ export class Survey {
 		public moodDisplay: string,
 		public sleepTime: number,
 		public sleepQuality: number,
-		public sleepQualityDisplay: number,
+		public sleepQualityDisplay: string,
 		public social: number,
 		public socialDisplay: string,
 	) { }

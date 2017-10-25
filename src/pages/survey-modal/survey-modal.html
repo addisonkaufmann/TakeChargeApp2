@@ -11,16 +11,95 @@
 
 
 <ion-content padding>
-<!--   <h1>Modal {{moodStrings[model.mood-1]}}</h1> [(ngModel)]="model.mood" 
- -->  <ion-item>
-  <h2>How did you feel today?</h2>
-  <ion-range class="form-control" name="mood" min="1" max="7" step="1" snaps="true" [(ngModel)]="model.mood" color="secondary">
-      	<ion-label range-left>
-      		<ion-icon name="sad" ></ion-icon>
-  		</ion-label>
-      	<ion-label range-right>
-      		<ion-icon name="happy" ></ion-icon>
-  		</ion-label>
-    </ion-range>
-</ion-item>
+	<div *ngIf="step == 1">
+		<h2>How did you feel today?</h2>
+		<h4 style="text-align: center;">{{moodStrings[model.mood-1]}}</h4>  
+		<ion-item>
+			<ion-range 	
+				class="form-control" 
+				name="mood" 
+				min="1" 
+				max="7" 
+				step="1" 
+				snaps="true" 
+				[(ngModel)]="model.mood" 
+				color="secondary">
+				<ion-label range-left>
+					<ion-icon name="sad" ></ion-icon>
+				</ion-label>
+				<ion-label range-right>
+					<ion-icon name="happy" ></ion-icon>
+				</ion-label>
+			</ion-range>
+		</ion-item>
+	</div>
+
+	<div *ngIf="step == 2">
+		<h2>How many hours did you sleep last night?</h2>
+		<h4 style="text-align: center;">{{model.sleepTime}} Hour(s)</h4>  
+		<ion-item>
+			<ion-range 	
+				class="form-control" 
+				name="sleepTime" 
+				min="0" 
+				max="12" 
+				step="1" 
+				snaps="true" 
+				[(ngModel)]="model.sleepTime" 
+				color="secondary">
+				<ion-label range-left>0</ion-label>
+				<ion-label range-right>12</ion-label>
+			</ion-range>
+		</ion-item>
+	</div>
+
+	<div *ngIf="step == 3">
+		<h2>How well did you sleep?</h2>
+		<h4 style="text-align: center;">{{sleepStrings[model.sleepQuality -1]}}</h4>  
+		<ion-item>
+			<ion-range 	
+				class="form-control" 
+				name="sleepQuality" 
+				min="1" 
+				max="7" 
+				step="1" 
+				snaps="true" 
+				[(ngModel)]="model.sleepQuality" 
+				color="secondary">
+				<ion-label range-left>
+					<ion-icon name="moon" ></ion-icon>
+				</ion-label>
+				<ion-label range-right>
+					<ion-icon name="moon" ></ion-icon>
+				</ion-label>
+			</ion-range>
+		</ion-item>
+	</div>
+
+	<div *ngIf="step == 4">
+		<h2>Overall, how were your social interactions today?</h2>
+		<h4 style="text-align: center;">{{socialStrings[model.social-1]}}</h4>  
+		<ion-item>
+			<ion-range 	
+				class="form-control" 
+				name="social" 
+				min="1" 
+				max="7" 
+				step="1" 
+				snaps="true" 
+				[(ngModel)]="model.social" 
+				color="secondary">
+				<ion-label range-left>
+					<ion-icon name="chatbubbles" ></ion-icon>
+				</ion-label>
+				<ion-label range-right>
+					<ion-icon name="chatbubbles" ></ion-icon>
+				</ion-label>
+			</ion-range>
+		</ion-item>
+	</div>
+  	<button *ngIf="step < 4" ion-button (click)="goNext();">Next</button>
+  	<button *ngIf="step == 4" ion-button (click)="finishSurvey();">Finish</button>
+
+
 </ion-content>

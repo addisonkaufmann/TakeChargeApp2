@@ -19,13 +19,22 @@ export class SurveyModalPage {
 	readonly moodStrings = ['Very Bad', 'Bad', 'Not So Good', 'Fine', 'Good', 'Very Good', 'Great'];
 	readonly sleepStrings = ['Very Bad', 'Bad', 'Not So Good', 'Fine', 'Good', 'Very Good', 'Great'];
 	readonly socialStrings = ['Very Bad', 'Bad', 'Not So Good', 'Fine', 'Good', 'Very Good', 'Great'];
+	step = 1;
 
-	closeModal(): void {
-		console.log("closing");
-		this.viewCtrl.dismiss();
+	closeModal(data): void {
+		this.viewCtrl.dismiss(data);
 	};
+
+	finishSurvey(): void {
+		this.closeModal(this.model);
+	};
+
+	goNext(): void {
+		this.step++;
+	};
+
 	constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
-		console.log('hi');
+		console.log(this.step);
 		console.log(this.model);
 	}
 
