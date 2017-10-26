@@ -1,25 +1,18 @@
-<ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-content padding class="bg" (click)="auth = true;">
 
+	<div class="welcome-parent" *ngIf="auth">
+		<h1 class="welcome-text">Get started with Google</h1>
+		<p>{{result}}</p>
+		<div class="google-button-parent">
+			<button class="google-button" ion-button color="light" (click)="loginUser()">
+				<img class="google-img" src="assets/imgs/google-logo.jpg"/>
+			</button>
+		</div>
+	</div>
 
-<ion-content padding>
-
-  <button ion-button block color="danger" (click)="loginUser()" *ngIf="!userProfile">
-    <ion-icon name="logo-googleplus"></ion-icon>
-    Login with Google
-  </button>
-
-  <ion-item *ngIf="userProfile">
-    <ion-avatar item-left>
-      <img [src]="userProfile.photoURL">
-    </ion-avatar>
-    <h2>{{ userProfile.displayName }}</h2>
-    <h3>{{ userProfile.email }}</h3>
-  </ion-item>
+	<div *ngIf="!auth">
+		<h1 class="welcome-text" style="margin-top: 25vh; font-size: 60px;">Welcome</h1>
+		<img class="welcome-img" src="assets/imgs/white-arrows.png"/>
+	</div>
+	
 </ion-content>

@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicStorageModule } from '@ionic/storage';
+
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -12,6 +14,7 @@ import { DayPage } from '../pages/day/day';
 import { EventModalPage } from '../pages/event-modal/event-modal';
 import { NoteModalPage } from '../pages/note-modal/note-modal';
 import { SurveyModalPage } from '../pages/survey-modal/survey-modal';
+import { WelcomePage } from '../pages/welcome/welcome';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -31,12 +34,14 @@ import { CalendarModule } from 'angular-calendar';
     DayPage,
     EventModalPage, 
     NoteModalPage, 
-    SurveyModalPage
+    SurveyModalPage, 
+    WelcomePage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    CalendarModule.forRoot()
+    CalendarModule.forRoot(),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -49,7 +54,8 @@ import { CalendarModule } from 'angular-calendar';
     DayPage,
     EventModalPage,
     NoteModalPage,
-    SurveyModalPage
+    SurveyModalPage, 
+    WelcomePage
       ],
   providers: [
     StatusBar,
