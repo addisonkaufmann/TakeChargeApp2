@@ -22,6 +22,21 @@ import { GooglePlus } from '@ionic-native/google-plus';
 
 import { CalendarModule } from 'angular-calendar';
 
+// Import the AF2 Module
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
+
+ 
+// AF2 Settings
+export const firebaseConfig = {
+  apiKey: "AIzaSyB29HunLsY01HaLPgiVRV9aO_5tBVVfkCY",
+  authDomain: "takecharge-7435b.firebaseapp.com",
+  databaseURL: "https://takecharge-7435b.firebaseio.com",
+  projectId: "takecharge-7435b",
+  storageBucket: "takecharge-7435b.appspot.com",
+  messagingSenderId: "852150779525"
+};
+
 
 @NgModule({
   declarations: [
@@ -41,7 +56,9 @@ import { CalendarModule } from 'angular-calendar';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     CalendarModule.forRoot(),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
