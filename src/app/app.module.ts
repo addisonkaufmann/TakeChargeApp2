@@ -29,12 +29,12 @@ import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
  
 // AF2 Settings
 export const firebaseConfig = {
-  apiKey: "AIzaSyB29HunLsY01HaLPgiVRV9aO_5tBVVfkCY",
-  authDomain: "takecharge-7435b.firebaseapp.com",
-  databaseURL: "https://takecharge-7435b.firebaseio.com",
-  projectId: "takecharge-7435b",
-  storageBucket: "takecharge-7435b.appspot.com",
-  messagingSenderId: "852150779525"
+  apiKey: "AIzaSyDqsO1x3ic_AZJsDy_3BgKqYCx6k_3s0Q8",
+  authDomain: "takecharge-83ec9.firebaseapp.com",
+  databaseURL: "https://takecharge-83ec9.firebaseio.com",
+  projectId: "takecharge-83ec9",
+  storageBucket: "takecharge-83ec9.appspot.com",
+  messagingSenderId: "1066194256784"
 };
 
 
