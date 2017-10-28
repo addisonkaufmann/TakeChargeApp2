@@ -7,6 +7,8 @@ import { CustomDateFormatter } from '../../providers/custom-date-formatter.provi
 
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Auth } from '../../providers/auth.provider';
+import { Observable } from 'rxjs/Observable';
+
 
 const colors: any = {
   red: {
@@ -44,31 +46,56 @@ export class CalendarPage {
 
 	}; 
 
-  events: Array<CalendarEvent<{ incrementsBadgeTotal: boolean, description: string, type: string }>> = new Array();
+  events: Array<CalendarEvent<{ incrementsBadgeTotal: boolean, description: string, type: string }>>;
   eventsDB: FirebaseListObservable<any>;
   notesDB: FirebaseListObservable<any>;
 	constructor(public navCtrl: NavController, public db: AngularFireDatabase, public auth: Auth) {
     this.notesDB = db.list('/' + this.auth.user.userId + '/notes');
     this.eventsDB = db.list('/' + this.auth.user.userId + '/events');
-
-    this.eventsDB.subscribe(events=>{
-        events.forEach(node => {
-          console.log(node);
-          var cEvent: CalendarEvent = {
-            title: node.title,
-            color: colors.blue,
-            start: new Date(node.date),
-            meta: {
-             incrementsBadgeTotal: true,
-             description: node.details,
-             type: node.type
-            }
-          }
-          this.events.push(cEvent);
-        })
-        console.log(this.events);
-    });
     //can't console log this.events here because of async
+  }
+
+  ngOnInit(): void {
+    this.fetchEvents();
+  }
+
+  fetchEvents(): void {
+    this.events = new Array<CalendarEvent>();
+    this.eventsDB.subscribe(events=>{
+      events.forEach(node => {
+        //console.log(node);
+        var cEvent: CalendarEvent = {
+          title: node.title,
+          color: colors.blue,
+          start: new Date(node.date),
+          meta: {
+           incrementsBadgeTotal: true,
+           description: node.details,
+           type: node.type
+          }
+        }
+        this.events.push(cEvent);
+      })
+      //console.log(this.events);
+    });
+
+    this.notesDB.subscribe(events=>{
+      events.forEach(node => {
+        //console.log(node);
+        var cNote: CalendarEvent = {
+          title: node.title,
+          color: colors.yellow,
+          start: new Date(node.date),
+          meta: {
+           incrementsBadgeTotal: true,
+           description: node.details,
+          }
+        }
+        this.events.push(cNote);
+      })
+      console.log(this.events);
+    });
+
   }
 
   beforeMonthViewRender({ body }: { body: CalendarMonthViewDay[] }): void {
