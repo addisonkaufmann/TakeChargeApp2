@@ -4,13 +4,9 @@ export class User{
 
 	public email: string;
 	public userId: string;
-	public firstName: string;
-	public idToken: string;
+	public givenName: string;
 	public lastName: string;
-	public fullName: string;
-	public imageUrl: string;
-
-
+	public idToken: string;
 
 	constructor(
 	) { }

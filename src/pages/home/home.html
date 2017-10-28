@@ -1,6 +1,6 @@
-<ion-content padding class="bg" (click)="auth = true;">
+<ion-content padding class="bg" (click)="showAuth = true;">
 
-	<div class="welcome-parent" *ngIf="auth">
+	<div class="welcome-parent" *ngIf="showAuth">
 		<h1 class="welcome-text">Get started with Google</h1>
 		<p>{{result}}</p>
 		<div class="google-button-parent">
@@ -10,7 +10,7 @@
 		</div>
 	</div>
 
-	<div *ngIf="!auth">
+	<div *ngIf="!showAuth">
 		<h1 class="welcome-text" style="margin-top: 25vh; font-size: 60px;">Welcome</h1>
 		<img class="welcome-img" src="assets/imgs/white-arrows.png"/>
 	</div>

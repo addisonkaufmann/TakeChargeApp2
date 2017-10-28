@@ -3,10 +3,9 @@ import { Nav, Platform, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
-import { GooglePlus } from '@ionic-native/google-plus';
 
 
-
+import { Auth } from '../providers/auth.provider';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
@@ -20,11 +19,11 @@ import { AnalyticsPage } from '../pages/analytics/analytics';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = CalendarPage;
+  rootPage: any;
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public storage: Storage, public alertCtrl: AlertController, public googlePlus: GooglePlus) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public storage: Storage, public alertCtrl: AlertController, public auth: Auth) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -43,6 +42,21 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      if ( !this.platform.is('cordova')) {
+        console.log("Ionic2 running in browser."); 
+        this.handleBrowserLaunch();  
+      } else {
+        this.storage.get('firstLaunch')
+        .then((value) => {
+          if (value == null || value){
+            this.handleFirstLaunch();
+          } else {
+            this.handleLaunch();
+          }
+        }).catch(() => this.handleFirstLaunch());
+      }
+       
     });
   };
 
@@ -52,44 +66,41 @@ export class MyApp {
     this.nav.setRoot(page.component);
   };
 
-  ngOnInit(){
-    this.storage.get('firstLaunch')
-    .then((value) => {
-      if (value == null || value){
-        this.handleFirstLaunch();
-      } else {
-        this.handleLaunch();
-      }
-    }).catch(() => this.handleFirstLaunch());
-  };
-
   handleFirstLaunch(){
     this.nav.setRoot(HomePage);
   };
 
   handleLaunch(){
-    this.loginUser();
+    this.auth.login()
+      .then(res => {
+            let alert = this.alertCtrl.create({
+              title: 'Hello ' + res.givenName,
+              subTitle: 'Your user id is ' + res.userId,
+              buttons: ['dismiss']
+            });
+           alert.present();
+       this.nav.setRoot(CalendarPage);
+      }, err => {
+            let alert = this.alertCtrl.create({
+                title: 'Error',
+                subTitle: 'Cannot login to Google.',
+                buttons: ['dismiss']
+              });
+             alert.present();
+            this.nav.setRoot(HomePage);
+      });
+      
   };
 
-  loginUser(): void {
-      this.googlePlus.login({
-        'webClientId': '889363901107-flqospl2tq54j07uvguise4ffbk0trhc.apps.googleusercontent.com',
-        'offline': true
-      }).then((res) => {
-        this.storage.set('firstLaunch', false);
-        let alert = this.alertCtrl.create({
-            title: 'Hello ' + res.givenName,
-            subTitle: 'Your user id is ' + res.userId,
-            buttons: ['dismiss']
-          });
-         alert.present();
-        }, (err) => {
-            let alert = this.alertCtrl.create({
-            title: 'Error',
-            subTitle: 'Cannot login to Google.',
-            buttons: ['dismiss']
-          });
-         alert.present();
+  handleBrowserLaunch(){
+    this.auth.mocklogin();
+     let alert = this.alertCtrl.create({
+          title: 'Hello ' + this.auth.user.givenName,
+          subTitle: 'Your user id is ' + this.auth.user.userId,
+          buttons: ['dismiss']
         });
+       alert.present();
+       this.nav.setRoot(CalendarPage);
   };
+    
 }
