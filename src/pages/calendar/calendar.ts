@@ -50,21 +50,25 @@ export class CalendarPage {
 	constructor(public navCtrl: NavController, public db: AngularFireDatabase, public auth: Auth) {
     this.notesDB = db.list('/' + this.auth.user.userId + '/notes');
     this.eventsDB = db.list('/' + this.auth.user.userId + '/events');
-    this.eventsDB.forEach((node) => {
-      console.log(node);
-      var cEvent: CalendarEvent = {
-        title: node.title,
-        color: colors.blue,
-        start: new Date(node.date),
-        meta: {
-         incrementsBadgeTotal: true,
-         description: node.details,
-         type: node.type
-        }
-      }
-      this.events.push(cEvent);
+
+    this.eventsDB.subscribe(events=>{
+        events.forEach(node => {
+          console.log(node);
+          var cEvent: CalendarEvent = {
+            title: node.title,
+            color: colors.blue,
+            start: new Date(node.date),
+            meta: {
+             incrementsBadgeTotal: true,
+             description: node.details,
+             type: node.type
+            }
+          }
+          this.events.push(cEvent);
+        })
+        console.log(this.events);
     });
-    console.log(this.events);
+    //can't console log this.events here because of async
   }
 
   beforeMonthViewRender({ body }: { body: CalendarMonthViewDay[] }): void {
