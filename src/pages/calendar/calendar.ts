@@ -2,10 +2,26 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { DayPage } from '../day/day';
 
-import { CalendarDateFormatter } from 'angular-calendar';
+import { CalendarDateFormatter, CalendarEvent, CalendarMonthViewDay  } from 'angular-calendar';
 import { CustomDateFormatter } from '../../providers/custom-date-formatter.provider';
 
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
+import { Auth } from '../../providers/auth.provider';
 
+const colors: any = {
+  red: {
+    primary: '#ad2121',
+    secondary: '#FAE3E3'
+  },
+  blue: {
+    primary: '#1e90ff',
+    secondary: '#D1E8FF'
+  },
+  yellow: {
+    primary: '#e3bc08',
+    secondary: '#FDF1BA'
+  }
+};
 
 @Component({
   selector: 'page-calendar',
@@ -28,7 +44,39 @@ export class CalendarPage {
 
 	}; 
 
-	constructor(public navCtrl: NavController) {}
-	
+  events: Array<CalendarEvent<{ incrementsBadgeTotal: boolean, description: string, type: string }>> = new Array();
+  eventsDB: FirebaseListObservable<any>;
+  notesDB: FirebaseListObservable<any>;
+	constructor(public navCtrl: NavController, public db: AngularFireDatabase, public auth: Auth) {
+    this.notesDB = db.list('/' + this.auth.user.userId + '/notes');
+    this.eventsDB = db.list('/' + this.auth.user.userId + '/events');
+    this.eventsDB.forEach((node) => {
+      console.log(node);
+      var cEvent: CalendarEvent = {
+        title: node.title,
+        color: colors.blue,
+        start: new Date(node.date),
+        meta: {
+         incrementsBadgeTotal: true,
+         description: node.details,
+         type: node.type
+        }
+      }
+      this.events.push(cEvent);
+    });
+    console.log(this.events);
+  }
+
+  beforeMonthViewRender({ body }: { body: CalendarMonthViewDay[] }): void {
+    body.forEach(day => {
+      day.badgeTotal = day.events.filter(
+        event => event.meta.incrementsBadgeTotal
+      ).length;
+    });
+  }	
+
+  eventClicked({ event }: { event: CalendarEvent }): void {
+    console.log('Event clicked', event);
+  }
 }
 

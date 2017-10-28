@@ -26,6 +26,12 @@ export class DayPage {
 		const modal = this.modalCtrl.create(EventModalPage, this.viewDate);
 		modal.onDidDismiss(data => {
 			console.log(data);
+			this.events.push({
+            	title: data.title,
+            	details: data.details,
+            	type: data.type,
+            	date: this.viewDate.toISOString()
+          	});
 	    });
    		modal.present();
 
@@ -37,16 +43,19 @@ export class DayPage {
 			console.log(data);
 			this.notes.push({
             	title: data.title,
-            	details: data.details
+            	details: data.details,
+            	date: this.viewDate.toISOString()
           	});
 	    });
    		modal.present();
 	};
 
+	events: FirebaseListObservable<any>;
 	notes: FirebaseListObservable<any>;
 	constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public db: AngularFireDatabase, public auth: Auth, public alertCtrl: AlertController) {
 		this.viewDate = new Date(navParams.data);
-		this.notes = db.list('/notes');
+		this.notes = db.list('/' + this.auth.user.userId + '/notes');
+		this.events = db.list('/' + this.auth.user.userId + '/events');
 		let alert = this.alertCtrl.create({
           title: 'Hello ' + this.auth.user.givenName,
           subTitle: 'Your user id is ' + this.auth.user.userId,
