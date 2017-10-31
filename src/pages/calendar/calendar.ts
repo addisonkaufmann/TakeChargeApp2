@@ -51,14 +51,17 @@ export class CalendarPage {
 	constructor(public navCtrl: NavController, public db: AngularFireDatabase, public auth: Auth) {
     this.notesDB = db.list('/' + this.auth.user.userId + '/notes');
     this.eventsDB = db.list('/' + this.auth.user.userId + '/events');
-      //can't console log this.events here because of async
+    //can't console log this.events here because of async
   }
 
   ngOnInit(): void {
     this.fetchEvents();
   }
 
-  
+  fakeSwitchCalendar(): void {
+    this.eventsDB = this.db.list('/fake/events');
+    this.fetchEvents();
+  }
 
   fetchEvents(): void {
     // this.events = [];
