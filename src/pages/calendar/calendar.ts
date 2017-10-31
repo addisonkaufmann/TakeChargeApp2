@@ -45,6 +45,7 @@ export class CalendarPage {
 	  this.navCtrl.push(DayPage, str);
 	}; 
 
+
   events$: Observable<Array<CalendarEvent>>;
   eventsDB: FirebaseListObservable<any>;
   notesDB: FirebaseListObservable<any>;

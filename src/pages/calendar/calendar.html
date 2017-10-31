@@ -9,6 +9,13 @@
 
 
 <ion-content padding>
+  <ion-item style="margin-bottom: 20px;">
+  <ion-label>Showing Calendar for: </ion-label>
+  <ion-select  (ionChange)="fakeSwitchCalendar();">
+    <ion-option selected>Me</ion-option>
+    <ion-option >Aaron</ion-option>
+  </ion-select>
+</ion-item>
   <div *ngIf="events$ | async; let events">
     <mwl-calendar-month-view
       [viewDate]="viewDate"
