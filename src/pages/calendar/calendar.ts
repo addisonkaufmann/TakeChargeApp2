@@ -7,7 +7,7 @@ import { CustomDateFormatter } from '../../providers/custom-date-formatter.provi
 
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Auth } from '../../providers/auth.provider';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 
 
 const colors: any = {
@@ -121,17 +121,12 @@ export class CalendarPage {
             start: new Date(node.date),
             meta: {
              incrementsBadgeTotal: true,
-             description: node.details            }
+             description: node.details            
+           }
           }
           return cEvent; 
         });
     });
-
-    // this.events$.mergeMap(i => {
-    //   console.log(i);
-    //   return temp;
-    // });
-
   }
 
   beforeMonthViewRender({ body }: { body: CalendarMonthViewDay[] }): void {
