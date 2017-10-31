@@ -42,59 +42,95 @@ export class CalendarPage {
 
 	dayClicked(day): void {
 		var str = day.date.getMonth()+1 + '-' + day.date.getDate() + '-' + day.date.getFullYear();
-	    this.navCtrl.push(DayPage, str);
-
+	  this.navCtrl.push(DayPage, str);
 	}; 
 
-  events: Array<CalendarEvent<{ incrementsBadgeTotal: boolean, description: string, type: string }>>;
+  events$: Observable<Array<CalendarEvent>>;
   eventsDB: FirebaseListObservable<any>;
   notesDB: FirebaseListObservable<any>;
 	constructor(public navCtrl: NavController, public db: AngularFireDatabase, public auth: Auth) {
     this.notesDB = db.list('/' + this.auth.user.userId + '/notes');
     this.eventsDB = db.list('/' + this.auth.user.userId + '/events');
-    //can't console log this.events here because of async
+      //can't console log this.events here because of async
   }
 
   ngOnInit(): void {
     this.fetchEvents();
   }
 
+  
+
   fetchEvents(): void {
-    this.events = new Array<CalendarEvent>();
-    this.eventsDB.subscribe(events=>{
-      events.forEach(node => {
-        //console.log(node);
+    // this.events = [];
+    // this.eventsDB.subscribe(events=>{
+    //   events.forEach(node => {
+    //     //console.log(node);
+    //     var cEvent: CalendarEvent = {
+    //       title: node.title,
+    //       color: colors.blue,
+    //       start: new Date(node.date),
+    //       meta: {
+    //        incrementsBadgeTotal: true,
+    //        description: node.details,
+    //        type: node.type
+    //       }
+    //     }
+    //     this.events.push(cEvent);
+    //   })
+    //   //console.log(this.events);
+    // });
+
+    // this.notesDB.subscribe(events=>{
+    //   events.forEach(node => {
+    //     //console.log(node);
+    //     var cNote: CalendarEvent = {
+    //       title: node.title,
+    //       color: colors.yellow,
+    //       start: new Date(node.date),
+    //       meta: {
+    //        incrementsBadgeTotal: true,
+    //        description: node.details,
+    //       }
+    //     }
+    //     this.events.push(cNote);
+    //   })
+    //   console.log(this.events);
+    // });
+    // this.events = Array.from(this.events);
+    this.events$ = this.eventsDB.map((item) => {
+      return item.map((node) => {
         var cEvent: CalendarEvent = {
-          title: node.title,
-          color: colors.blue,
-          start: new Date(node.date),
-          meta: {
-           incrementsBadgeTotal: true,
-           description: node.details,
-           type: node.type
+            title: node.title,
+            color: colors.blue,
+            start: new Date(node.date),
+            meta: {
+             incrementsBadgeTotal: true,
+             description: node.details,
+             type: node.type
+            }
           }
-        }
-        this.events.push(cEvent);
-      })
-      //console.log(this.events);
+          return cEvent; 
+        });
     });
 
-    this.notesDB.subscribe(events=>{
-      events.forEach(node => {
-        //console.log(node);
-        var cNote: CalendarEvent = {
-          title: node.title,
-          color: colors.yellow,
-          start: new Date(node.date),
-          meta: {
-           incrementsBadgeTotal: true,
-           description: node.details,
+    var temp = this.notesDB.map((item) => {
+      return item.map((node) => {
+        var cEvent: CalendarEvent = {
+            title: node.title,
+            color: colors.yellow,
+            start: new Date(node.date),
+            meta: {
+             incrementsBadgeTotal: true,
+             description: node.details            }
           }
-        }
-        this.events.push(cNote);
-      })
-      console.log(this.events);
+          return cEvent; 
+        });
     });
+
+    // this.events$.mergeMap(i => {
+    //   console.log(i);
+    //   return temp;
+    // });
 
   }
 
