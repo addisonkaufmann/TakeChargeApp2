@@ -7,7 +7,11 @@
 
   <ion-content>
     <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+      <button menuClose ion-item *ngFor="let p of pages; let i = index" (click)="openPage(p)">
+        <ion-icon class="menu-icon" *ngIf="i == 0" name="calendar"></ion-icon>
+        <ion-icon class="menu-icon" *ngIf="i == 1" name="clipboard"></ion-icon>
+        <ion-icon class="menu-icon" *ngIf="i == 2" name="stats"></ion-icon>
+
         {{p.title}}
       </button>
     </ion-list>
