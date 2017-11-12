@@ -20,5 +20,8 @@ export class SurveyPage {
 
 	};
 
+	today: any = new Date();
+	complete: boolean = false;
+
 	constructor(public navCtrl: NavController, public modalCtrl: ModalController) {}	
 }

@@ -9,7 +9,20 @@
 
 
 <ion-content padding>
+	<div class="centered">
+		<h1 class="title">Daily Survey</h1>
+		<h3 class="subtitle">{{ today | date:'longDate' }}</h3>
 
-  <h1>Survey!</h1>
-  <button ion-button (click)="startSurvey();">Start Survey</button>
+		<div *ngIf="!complete">
+			<button ion-button color="light" (click)="startSurvey();" class="circle">
+				<img src="assets/imgs/arrow-left-blue.png"/>
+			</button>
+			<h4 class="hint">Start</h4>
+		</div>
+		<div *ngIf="complete">		
+			<img class="check" src="assets/imgs/check-blue.png">
+			<h4 class="hint">Complete</h4>
+		</div>
+	</div>
+
 </ion-content>
