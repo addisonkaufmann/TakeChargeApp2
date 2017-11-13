@@ -17,11 +17,11 @@
 <div class="month-switcher">
   
   <h1 style="text-align: center;">
-    <button ion-button round outline style="float: left;" (click)="goPrev()">
+    <button ion-button round  style="float: left;" (click)="goPrev()">
     <ion-icon name="arrow-back"></ion-icon>
   </button>
   {{viewDate | date:'MMMM yyyy'}}
-   <button style="float: right;" ion-button round outline (click)="goNext()">
+   <button style="float: right;" ion-button round (click)="goNext()">
     <ion-icon name="arrow-forward"></ion-icon>
   </button>
   </h1>
