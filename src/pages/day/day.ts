@@ -6,6 +6,9 @@ import { NoteModalPage } from '../note-modal/note-modal';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Auth } from '../../providers/auth.provider';
 
+import { AlertController } from 'ionic-angular';
+
+
 
 /**
  * Generated class for the DayPage page.
@@ -26,26 +29,76 @@ export class DayPage {
 		const modal = this.modalCtrl.create(EventModalPage, this.viewDate);
 		modal.onDidDismiss(data => {
 			console.log(data);
+			if (data){
 			this.events.push({
-            	title: data.title,
-            	details: data.details,
-            	type: data.type,
-            	date: this.viewDate.toISOString()
-          	});
+	            	title: data.title,
+	            	details: data.details,
+	            	type: data.type,
+	            	date: this.viewDate.toISOString()
+	          	});
+			}
 	    });
    		modal.present();
 
 	};
 
+
+	timeStamp(date: Date): string {
+
+	  var time = [ date.getHours(), date.getMinutes() ];
+
+	  var suffix = ( time[0] < 12 ) ? "AM" : "PM";
+
+	  time[0] = ( time[0] < 12 ) ? time[0] : time[0] - 12;
+
+	  time[0] = time[0] || 12;
+
+    if ( time[1] < 10 ) {
+      time[1] = "0" + time[1];
+    }
+	  return time.join(":") + " " + suffix;
+	};
+
+	clicked(date): void {
+		console.log(date);
+
+		let alert = this.alertCtrl.create({
+		    title:  this.timeStamp(date.date),
+		    buttons: [
+		    {
+		        text: 'Add Event',
+		        handler: () => {
+		          this.createEvent(date);
+		        }
+		      },
+		      {
+		        text: 'Add Note',
+		        handler: () => {
+		          this.createNote(date);
+		        }
+		      },
+		      {
+		        text: 'Cancel',
+		        role: 'cancel'
+		      }
+		    ]
+		  });
+		  alert.present();
+
+	};
+
+
 	createNote(): void {
 		const modal = this.modalCtrl.create(NoteModalPage, this.viewDate);
 		modal.onDidDismiss(data => {
 			console.log(data);
-			this.notes.push({
-            	title: data.title,
-            	details: data.details,
-            	date: this.viewDate.toISOString()
-          	});
+			if (data){
+				this.notes.push({
+	            	title: data.title,
+	            	details: data.details,
+	            	date: this.viewDate.toISOString()
+	          	});
+			}
 	    });
    		modal.present();
 	};

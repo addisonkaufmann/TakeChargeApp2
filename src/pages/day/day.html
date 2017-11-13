@@ -9,9 +9,15 @@
 
 
 <ion-content padding>
-	<button ion-button (click)="createEvent();">+ Add Event</button>
-	<button ion-button (click)="createNote();">+ Add Note</button>
-  <mwl-calendar-day-view
+<!-- 	<button ion-button (click)="createEvent();">+ Add Event</button>
+	<button ion-button (click)="createNote();">+ Add Note</button> -->
+<!--   <mwl-calendar-day-view
     [viewDate]="viewDate">
+  </mwl-calendar-day-view> -->
+
+  <mwl-calendar-day-view
+    [viewDate]="viewDate"
+    (hourSegmentClicked)="clicked($event)"
+    (eventTimesChanged)="eventTimesChanged($event)">
   </mwl-calendar-day-view>
 </ion-content>
