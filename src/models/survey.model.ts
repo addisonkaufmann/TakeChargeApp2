@@ -24,12 +24,14 @@ export class Survey {
 	public readonly socialStrings = ['Very Bad', 'Bad', 'Not So Good', 'Fine', 'Good', 'Very Good', 'Great'];
 
 	public date: Date;
+	public dateISO: any;
 
 	public prepare(): void {
 		this.moodDisplay = this.moodStrings[this.mood - 1];
 		this.sleepQualityDisplay = this.sleepStrings[this.sleepQuality - 1];
 		this.socialDisplay = this.socialStrings[this.social - 1];
 		this.date = new Date();
+		this.dateISO = this.date.toISOString();
 	}
 
 	constructor(
