@@ -13,4 +13,14 @@ page-calendar{
 		float: none !important;
 	}
 
+	.select-text {
+		color: color($colors, light);
+		font-size: 2rem;
+	}
+
+	.light-select {
+  		max-width: 95% !important;
+	}
+	
+
 }

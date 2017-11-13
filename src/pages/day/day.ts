@@ -6,7 +6,6 @@ import { NoteModalPage } from '../note-modal/note-modal';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Auth } from '../../providers/auth.provider';
 
-import { AlertController } from 'ionic-angular';
 
 
 
