@@ -46,7 +46,8 @@ export class MyApp {
 
       if ( !this.platform.is('cordova')) {
         console.log("Ionic2 running in browser."); 
-        this.handleBrowserLaunch();  
+        // this.handleBrowserLaunch();  
+        this.handleFirstLaunch();
       } else {
         this.storage.get('firstLaunch')
         .then((value) => {

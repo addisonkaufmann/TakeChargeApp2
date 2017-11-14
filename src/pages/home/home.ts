@@ -5,6 +5,7 @@ import { CalendarPage } from '../calendar/calendar';
 import { Storage } from '@ionic/storage';
 
 import { Auth } from '../../providers/auth.provider';
+import { User } from '../../models/user.model';
 
 
 
@@ -17,46 +18,64 @@ import { Auth } from '../../providers/auth.provider';
 export class HomePage {
 
 	result: string = "hello, world";
+	browserDebug: boolean = false;
 	
-	showAuth: false;
+	showAuth: boolean = false;
+	authSuccess: boolean = false;
+	showAddUser: boolean = false;
+	user: User = null;
+	displayName: string;
 	constructor(public navCtrl: NavController, public auth: Auth, private alertCtrl: AlertController, private menuCtrl: MenuController, private storage: Storage) {
 		this.menuCtrl.enable(false, 'sideMenu');
 	}
 
+	fakeLogin(): void {
+		this.auth.mocklogin();
+		this.authSuccess = true;
+		this.user = this.auth.getUser();
+		this.displayName = this.user.givenName;
+		console.log(this.user);
+	}
 
-	loginUser(): void {
+	setSelf(isSelf): void {
+		if (isSelf){
+			this.finishOnboard();
+		} else {
+			this.user.givenName = "";
+			this.user.lastName = "";
+			this.showAddUser = true;
+		}
+	}
+
+	finishOnboard(): void {
+		//TODO: submit user object to DB
+		console.log(this.user);
+		this.storage.set('firstLaunch', false);
+		this.menuCtrl.enable(true, 'sideMenu');
+		this.navCtrl.setRoot(CalendarPage);
+	}
+
+	loginUser(): void {	
+		if (this.browserDebug){
+			this.fakeLogin();
+			return;
+		}
 		this.auth.login()
 			.then(res => {
 				console.log("promise resolved");
 				console.log(res);
-		        this.storage.set('firstLaunch', false);
+				this.user = res;
+				this.authSuccess = true;
+				this.displayName = this.user.givenName;
 
-				let alert = this.alertCtrl.create({
-		        title: 'Hello ' + res.givenName,
-		        subTitle: 'Your user id is ' + res.userId,
-		        buttons: [
-				      {
-				        text: 'Done',
-				        handler: () => {
-				          	this.menuCtrl.enable(true, 'sideMenu');
-				          	this.navCtrl.setRoot(CalendarPage);
-				        }
-				      }
-				    ]
-				  });
-		     alert.present();
 			}, err =>{
 				let alert = this.alertCtrl.create({
 		        title: 'Error',
 		        subTitle: 'Cannot login to Google. ' + JSON.stringify(err),
 		        buttons: [
 				      {
-				        text: 'Skip',
-				        handler: () => {
-				          	this.menuCtrl.enable(true, 'sideMenu');
-				          	this.navCtrl.setRoot(CalendarPage);
-
-				        }
+				        text: 'Close',
+				        role: 'cancel'
 				      }
 				    ]
 				  });

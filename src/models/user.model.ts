@@ -7,6 +7,7 @@ export class User{
 	public givenName: string;
 	public lastName: string;
 	public idToken: string;
+	public isSelf: boolean;
 
 	constructor(
 	) { }

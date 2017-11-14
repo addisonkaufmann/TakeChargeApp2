@@ -1,6 +1,6 @@
 <ion-content padding class="bg" (click)="showAuth = true;">
 
-	<div class="welcome-parent" *ngIf="showAuth">
+	<div class="welcome-parent" *ngIf="showAuth && !authSuccess">
 		<h1 class="welcome-text">Get started with Google</h1>
 		<div class="google-button-parent">
 			<button class="google-button" ion-button color="light" (click)="loginUser()">
@@ -13,5 +13,26 @@
 		<h1 class="welcome-text" style="margin-top: 25vh; font-size: 60px;">Welcome</h1>
 		<img class="welcome-img" src="assets/imgs/white-arrows.png"/>
 	</div>
+
+	<div *ngIf="authSuccess && !showAddUser" style="margin-top: 25vh;">
+		<h2 class="welcome-user">Welcome {{user.givenName}}</h2>
+		<p class="welcome-about">Tell us a little about yourself. Which of the following applies to you?</p>
+		<button ion-button block color="light" (click)="setSelf(true)" style="margin-top: 30px;"><span class="blue">I want to manage my autism</span></button>
+		<button ion-button block color="light" (click)="setSelf(false)" style="margin-top: 20px;"><span class="blue">I care for someone with autism</span></button>
+	</div>
+
+	<div *ngIf="showAddUser" style="margin-top: 25vh;">
+		<h2 class="welcome-user">Welcome {{displayName}}</h2>
+		<p class="welcome-about">Tell us about the one you care for.</p>
+		<ion-list>
+			<ion-item>
+				<ion-label floating>First name or nickname</ion-label>
+				<ion-input [(ngModel)]="user.givenName" type="text"></ion-input>
+			</ion-item>
+		</ion-list>
+		<button [disabled]="user.givenName == ''" ion-button block color="light" (click)="finishOnboard()" style="margin-top: 20px;"><span class="blue">Finish</span></button>
+	</div>
+
+	
 	
 </ion-content>

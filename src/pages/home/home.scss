@@ -17,11 +17,26 @@ page-home {
 		border-radius: 50%;
 	}
 
-	.welcome-text{
+	.welcome-text-base{
 		color: color($colors, light);
 		font-weight: 900;
 		font-size: 50px;
+	}
+
+	.welcome-text{
+		@extend .welcome-text-base;
 		text-align: center;
+	}
+
+	.welcome-user{
+		@extend .welcome-text-base;
+		text-align: left;
+	}
+
+	.welcome-about {
+		color: color($colors, light);
+		font-size: 14pt;
+		font-weight: 300;
 	}
 
 	.google-button-parent {
@@ -33,5 +48,9 @@ page-home {
 
 	.welcome-parent {
 		margin-top: 25vh;
+	}
+
+	.blue {
+		color: color($colors, primary);
 	}
 }
