@@ -70,7 +70,7 @@ export class DayPage {
 	  time[0] = time[0] || 12;
 
     if ( time[1] < 10 ) {
-      time[1] = "0" + time[1].toString();
+    	return time[0] + ':' + "0" + time[1].toString() + " " + suffix;
     }
 	  return time.join(":") + " " + suffix;
 	};
