@@ -132,6 +132,15 @@ export class DayPage {
 	           }
 	          }
 	        }
+	        var hours: string;
+
+	        hours = node.date;
+	        hours = hours.substring(hours.indexOf('T')+1, hours.indexOf('T')+3);
+	        cEvent.start.setHours(Number(hours));
+	        var mins: string;
+	        mins = node.date;
+	        mins = mins.substring(mins.indexOf('T')+4, mins.indexOf('T')+6);
+	        cEvent.start.setMinutes(Number(mins));
 	        return cEvent; 
 	        });
 	    });
