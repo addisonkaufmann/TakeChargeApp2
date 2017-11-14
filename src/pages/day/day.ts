@@ -70,7 +70,7 @@ export class DayPage {
 	  time[0] = time[0] || 12;
 
     if ( time[1] < 10 ) {
-      time[1] = "0" + time[1];
+      time[1] = "0" + time[1].toString();
     }
 	  return time.join(":") + " " + suffix;
 	};
@@ -125,12 +125,12 @@ export class DayPage {
 	constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public db: AngularFireDatabase, public auth: Auth, public alertCtrl: AlertController) {
 		this.viewDate = new Date(navParams.data);
 		this.eventsDB = db.list('/' + this.auth.user.userId + '/events');
-		let alert = this.alertCtrl.create({
-          title: 'Hello ' + this.auth.user.givenName,
-          subTitle: 'Your user id is ' + this.auth.user.userId,
-          buttons: ['dismiss']
-        });
-       alert.present();
+		// let alert = this.alertCtrl.create({
+  //         title: 'Hello ' + this.auth.user.givenName,
+  //         subTitle: 'Your user id is ' + this.auth.user.userId,
+  //         buttons: ['dismiss']
+  //       });
+  //      alert.present();
 	}
 
 	ngOnInit(): void {
