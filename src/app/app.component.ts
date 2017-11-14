@@ -8,10 +8,10 @@ import { Storage } from '@ionic/storage';
 import { Auth } from '../providers/auth.provider';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { CalendarPage } from '../pages/calendar/calendar';
 import { SurveyPage } from '../pages/survey/survey';
 import { AnalyticsPage } from '../pages/analytics/analytics';
+import { SettingsPage }  from '../pages/settings/settings';
 
 @Component({
   templateUrl: 'app.html'
@@ -31,7 +31,8 @@ export class MyApp {
     this.pages = [
       { title: 'Calendar', component: CalendarPage },
       { title: 'Survey', component: SurveyPage }, 
-      { title: 'Analytics', component: AnalyticsPage }
+      { title: 'Analytics', component: AnalyticsPage },
+      { title: 'Settings', component: SettingsPage }
     ];
 
   };

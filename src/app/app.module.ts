@@ -8,7 +8,6 @@ import { Auth } from '../providers/auth.provider';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { CalendarPage } from '../pages/calendar/calendar';
 import { SurveyPage } from '../pages/survey/survey';
 import { AnalyticsPage } from '../pages/analytics/analytics';
@@ -17,6 +16,7 @@ import { EventModalPage } from '../pages/event-modal/event-modal';
 import { NoteModalPage } from '../pages/note-modal/note-modal';
 import { SurveyModalPage } from '../pages/survey-modal/survey-modal';
 import { WelcomePage } from '../pages/welcome/welcome';
+import { SettingsPage } from '../pages/settings/settings';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -44,7 +44,6 @@ export const firebaseConfig = {
   declarations: [
     MyApp,
     HomePage,
-    ListPage, 
     CalendarPage,
     SurveyPage, 
     AnalyticsPage,
@@ -52,7 +51,8 @@ export const firebaseConfig = {
     EventModalPage, 
     NoteModalPage, 
     SurveyModalPage, 
-    WelcomePage
+    WelcomePage, 
+    SettingsPage
   ],
   imports: [
     BrowserModule,
@@ -65,8 +65,7 @@ export const firebaseConfig = {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
-    ListPage, 
+    HomePage, 
     CalendarPage,
     SurveyPage,
     AnalyticsPage,
@@ -74,7 +73,8 @@ export const firebaseConfig = {
     EventModalPage,
     NoteModalPage,
     SurveyModalPage, 
-    WelcomePage
+    WelcomePage,
+    SettingsPage
       ],
   providers: [
     StatusBar,
