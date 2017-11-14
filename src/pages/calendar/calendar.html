@@ -3,20 +3,37 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Calendar</ion-title>
+        <ion-select class="light-select" (ionChange)="fakeSwitchCalendar();">
+          <ion-option selected>My Calendar</ion-option>
+          <ion-option >Aaron's Calendar</ion-option>
+        </ion-select>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-  <ion-item style="margin-bottom: 20px;">
-  <ion-label>Showing Calendar for: </ion-label>
-  <ion-select  (ionChange)="fakeSwitchCalendar();">
-    <ion-option selected>Me</ion-option>
-    <ion-option >Aaron</ion-option>
-  </ion-select>
+
+<ion-item>
+<div class="month-switcher">
+  
+  <h1 style="text-align: center;">
+    <button ion-button round  style="float: left;" (click)="goPrev()">
+    <ion-icon name="arrow-back"></ion-icon>
+  </button>
+  {{viewDate | date:'MMMM yyyy'}}
+   <button style="float: right;" ion-button round (click)="goNext()">
+    <ion-icon name="arrow-forward"></ion-icon>
+  </button>
+  </h1>
+ 
+</div>
 </ion-item>
+
+
+
+
   <div *ngIf="events$ | async; let events">
+
     <mwl-calendar-month-view
       [viewDate]="viewDate"
       [events]="events"

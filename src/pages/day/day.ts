@@ -40,32 +40,82 @@ export class DayPage {
 
 	viewDate: any = null;
 
-	createEvent(): void {
-		const modal = this.modalCtrl.create(EventModalPage, this.viewDate);
+	createEvent(date: Date): void {
+		const modal = this.modalCtrl.create(EventModalPage, date);
 		modal.onDidDismiss(data => {
 			console.log(data);
-			this.eventsDB.push({
-            	title: data.title,
-            	details: data.details,
-            	type: data.type,
-            	enum: 'EVENT',
-            	date: this.viewDate.toISOString()
-          	});
+			if (data){
+				this.eventsDB.push({
+	            	title: data.title,
+	            	details: data.details,
+	            	type: data.type,
+	            	enum: 'EVENT',
+	            	date: this.viewDate.toISOString()
+	          	});
+			}
 	    });
    		modal.present();
 
 	};
 
-	createNote(): void {
-		const modal = this.modalCtrl.create(NoteModalPage, this.viewDate);
+
+	timeStamp(date: Date): string {
+
+	  var time = [ date.getHours(), date.getMinutes() ];
+
+	  var suffix = ( time[0] < 12 ) ? "AM" : "PM";
+
+	  time[0] = ( time[0] < 12 ) ? time[0] : time[0] - 12;
+
+	  time[0] = time[0] || 12;
+
+    if ( time[1] < 10 ) {
+      time[1] = "0" + time[1];
+    }
+	  return time.join(":") + " " + suffix;
+	};
+
+	clicked(date): void {
+		console.log(date);
+
+		let alert = this.alertCtrl.create({
+		    title:  this.timeStamp(date.date),
+		    buttons: [
+		    {
+		        text: 'Add Event',
+		        handler: () => {
+		          this.createEvent(date.date);
+		        }
+		      },
+		      {
+		        text: 'Add Note',
+		        handler: () => {
+		          this.createNote(date.date);
+		        }
+		      },
+		      {
+		        text: 'Cancel',
+		        role: 'cancel'
+		      }
+		    ]
+		  });
+		  alert.present();
+
+	};
+
+
+	createNote(date: Date): void {
+		const modal = this.modalCtrl.create(NoteModalPage, date);
 		modal.onDidDismiss(data => {
 			console.log(data);
-			this.eventsDB.push({
-            	title: data.title,
-            	details: data.details,
-            	enum: 'NOTE',
-            	date: this.viewDate.toISOString()
-          	});
+			if (data){
+				this.eventsDB.push({
+	            	title: data.title,
+	            	details: data.details,
+	            	enum: 'NOTE',
+	            	date: this.viewDate.toISOString()
+	          	});
+			}
 	    });
    		modal.present();
 	};
@@ -102,6 +152,8 @@ export class DayPage {
 	             type: node.type
 	            }
 	          }
+	          	        console.log(cEvent.start);
+
 	        }
 	        else if (node.enum === 'NOTE') {
 	          cEvent = {
@@ -113,6 +165,8 @@ export class DayPage {
 	             description: node.details            
 	           }
 	          }
+	          	        console.log(cEvent.start);
+
 	        }
 	        else if (node.enum === 'SURVEY') {
 	          cEvent = {
