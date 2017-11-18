@@ -9,6 +9,8 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 import { Auth } from '../../providers/auth.provider';
 import { Observable } from 'rxjs/Rx';
 
+import { AlertController } from 'ionic-angular';
+
 
 const colors: any = {
   red: {
@@ -44,16 +46,28 @@ export class CalendarPage {
 		var str = day.date.getMonth()+1 + '-' + day.date.getDate() + '-' + day.date.getFullYear();
 	  this.navCtrl.push(DayPage, str);
 	}; 
+	
+	
 
   events$: Observable<Array<CalendarEvent>>;
   eventsDB: FirebaseListObservable<any>;
-	constructor(public navCtrl: NavController, public db: AngularFireDatabase, public auth: Auth) {
+	constructor(public navCtrl: NavController, public db: AngularFireDatabase, public auth: Auth, public alerCtrl: AlertController) {
     this.eventsDB = db.list('/' + this.auth.user.userId + '/events');
     //can't console log this.events here because of async
   }
 
   ngOnInit(): void {
     this.fetchEvents();
+  }
+  
+  handleEvent(action: string, event: CalendarEvent): void {
+    let alert = this.alerCtrl.create({
+      title: "Title = "+ event.title,
+      subTitle: "Start = "+event.start + "<br/> Details = " + event.meta.description,
+      buttons: ['OK']
+    });
+    alert.present();
+	
   }
 
   fakeSwitchCalendar(): void {
