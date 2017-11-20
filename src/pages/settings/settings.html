@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Settings</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <button ion-item (click)="add()">
+    <ion-icon item-left name="add-circle"></ion-icon>
+	  Add an account
+	</button>
+   <button ion-item (click)="share()">
+   	<ion-icon item-left name="share"></ion-icon>
+	  Share my account
+	</button>
+</ion-list>
+</ion-content>

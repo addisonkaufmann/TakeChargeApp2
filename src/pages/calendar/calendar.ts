@@ -56,6 +56,15 @@ export class CalendarPage {
     //can't console log this.events here because of async
   }
 
+  goPrev(): void {
+    console.log(this.viewDate);
+    this.viewDate = new Date(this.viewDate.setMonth(this.viewDate.getMonth() - 1));
+  };
+
+  goNext(): void{
+    this.viewDate = new Date(this.viewDate.setMonth(this.viewDate.getMonth() + 1));
+  };
+
   ngOnInit(): void {
     this.fetchEvents();
   }

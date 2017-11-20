@@ -9,12 +9,11 @@
 
 
 <ion-content padding>
-	<button ion-button (click)="createEvent();">+ Add Event</button>
-	<button ion-button (click)="createNote();">+ Add Note</button>
   <div *ngIf="events$ | async; let events">
     <mwl-calendar-day-view
       [viewDate]="viewDate"
       [events]="events"
+      (hourSegmentClicked)="clicked($event)"
       (dayClicked)="dayClicked($event.day)">  
     </mwl-calendar-day-view>
   </div>

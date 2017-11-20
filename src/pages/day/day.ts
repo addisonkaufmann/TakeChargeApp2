@@ -40,32 +40,82 @@ export class DayPage {
 
 	viewDate: any = null;
 
-	createEvent(): void {
-		const modal = this.modalCtrl.create(EventModalPage, this.viewDate);
+	createEvent(date: Date): void {
+		const modal = this.modalCtrl.create(EventModalPage, date);
 		modal.onDidDismiss(data => {
 			console.log(data);
-			this.eventsDB.push({
-            	title: data.title,
-            	details: data.details,
-            	type: data.type,
-            	enum: 'EVENT',
-            	date: this.viewDate.toISOString()
-          	});
+			if (data){
+				this.eventsDB.push({
+	            	title: data.title,
+	            	details: data.details,
+	            	type: data.type,
+	            	enum: 'EVENT',
+	            	date: this.viewDate.toISOString()
+	          	});
+			}
 	    });
    		modal.present();
 
 	};
 
-	createNote(): void {
-		const modal = this.modalCtrl.create(NoteModalPage, this.viewDate);
+
+	timeStamp(date: Date): string {
+
+	  var time = [ date.getHours(), date.getMinutes() ];
+
+	  var suffix = ( time[0] < 12 ) ? "AM" : "PM";
+
+	  time[0] = ( time[0] < 12 ) ? time[0] : time[0] - 12;
+
+	  time[0] = time[0] || 12;
+
+    if ( time[1] < 10 ) {
+      time[1] = "0" + time[1].toString();
+    }
+	  return time.join(":") + " " + suffix;
+	};
+
+	clicked(date): void {
+		console.log(date);
+
+		let alert = this.alertCtrl.create({
+		    title:  this.timeStamp(date.date),
+		    buttons: [
+		    {
+		        text: 'Add Event',
+		        handler: () => {
+		          this.createEvent(date.date);
+		        }
+		      },
+		      {
+		        text: 'Add Note',
+		        handler: () => {
+		          this.createNote(date.date);
+		        }
+		      },
+		      {
+		        text: 'Cancel',
+		        role: 'cancel'
+		      }
+		    ]
+		  });
+		  alert.present();
+
+	};
+
+
+	createNote(date: Date): void {
+		const modal = this.modalCtrl.create(NoteModalPage, date);
 		modal.onDidDismiss(data => {
 			console.log(data);
-			this.eventsDB.push({
-            	title: data.title,
-            	details: data.details,
-            	enum: 'NOTE',
-            	date: this.viewDate.toISOString()
-          	});
+			if (data){
+				this.eventsDB.push({
+	            	title: data.title,
+	            	details: data.details,
+	            	enum: 'NOTE',
+	            	date: this.viewDate.toISOString()
+	          	});
+			}
 	    });
    		modal.present();
 	};
@@ -75,12 +125,12 @@ export class DayPage {
 	constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public db: AngularFireDatabase, public auth: Auth, public alertCtrl: AlertController) {
 		this.viewDate = new Date(navParams.data);
 		this.eventsDB = db.list('/' + this.auth.user.userId + '/events');
-		let alert = this.alertCtrl.create({
-          title: 'Hello ' + this.auth.user.givenName,
-          subTitle: 'Your user id is ' + this.auth.user.userId,
-          buttons: ['dismiss']
-        });
-       alert.present();
+		// let alert = this.alertCtrl.create({
+  //         title: 'Hello ' + this.auth.user.givenName,
+  //         subTitle: 'Your user id is ' + this.auth.user.userId,
+  //         buttons: ['dismiss']
+  //       });
+  //      alert.present();
 	}
 
 	ngOnInit(): void {
@@ -102,6 +152,8 @@ export class DayPage {
 	             type: node.type
 	            }
 	          }
+	          	        console.log(cEvent.start);
+
 	        }
 	        else if (node.enum === 'NOTE') {
 	          cEvent = {
@@ -113,6 +165,8 @@ export class DayPage {
 	             description: node.details            
 	           }
 	          }
+	          	        console.log(cEvent.start);
+
 	        }
 	        else if (node.enum === 'SURVEY') {
 	          cEvent = {
@@ -132,6 +186,15 @@ export class DayPage {
 	           }
 	          }
 	        }
+	        var hours: string;
+
+	        hours = node.date;
+	        hours = hours.substring(hours.indexOf('T')+1, hours.indexOf('T')+3);
+	        cEvent.start.setHours(Number(hours));
+	        var mins: string;
+	        mins = node.date;
+	        mins = mins.substring(mins.indexOf('T')+4, mins.indexOf('T')+6);
+	        cEvent.start.setMinutes(Number(mins));
 	        return cEvent; 
 	        });
 	    });
