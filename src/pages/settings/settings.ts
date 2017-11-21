@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { Auth } from '../../providers/auth.provider';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
+import { Observable } from 'rxjs/Rx';
 
 
 /**
@@ -36,7 +38,7 @@ export class SettingsPage {
 		    subTitle: 'Enter the person\'s user id',
 		    inputs: [
 		      {
-		        name: 'name',
+		        id: 'name',
 		        placeholder: 'User Id',
 		      }
 		      ],
@@ -48,8 +50,9 @@ export class SettingsPage {
 		      },
 		      {
 		        text: 'Add',
-		        handler: () => {
-		          console.log("Adding account x");
+		        handler: data => {
+		          	this.userWhitelist.push(data[0]);
+		          	console.log("Whitelist added: " + data[0]);
 		        }
 		      }
 		    ]
@@ -57,8 +60,8 @@ export class SettingsPage {
 		  alert.present();
 	};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public auth: Auth) {
+  userWhitelist: string[];
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public auth: Auth, public db: AngularFireDatabase) {
+  	this.userWhitelist = this.auth.whitelist;
   }
-
-
 }

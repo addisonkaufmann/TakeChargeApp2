@@ -18,7 +18,7 @@ import { User } from '../../models/user.model';
 export class HomePage {
 
 	result: string = "hello, world";
-	browserDebug: boolean = false;
+	browserDebug: boolean = true;
 	
 	showAuth: boolean = false;
 	authSuccess: boolean = false;

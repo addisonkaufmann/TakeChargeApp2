@@ -84,6 +84,11 @@ export class CalendarPage {
     this.fetchEvents();
   }
 
+  switchCalendar(id: string): void {
+    this.eventsDB = this.db.list('/' + string + '/events');
+    this.fetchEvents();
+  }
+
   fetchEvents(): void {
     // this.events = [];
     // this.eventsDB.subscribe(events=>{
