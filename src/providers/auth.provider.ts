@@ -7,10 +7,9 @@ import { User } from '../models/user.model';
 @Injectable()
 export class Auth {
   public user: User;
-  public whitelist: string[];
+  public whitelist: User[] = [];
 
   constructor( public googlePlus: GooglePlus ) {
-    this.whitelist = new Array<string>();
   }
 
   mocklogin(): boolean {
@@ -26,6 +25,10 @@ export class Auth {
 
   getUser(): User {
     return this.user;
+  }
+
+  getList(): string[] { 
+    return this.whitelist;
   }
 
   login(): Promise<any> {

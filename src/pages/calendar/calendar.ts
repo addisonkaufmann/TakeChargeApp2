@@ -42,6 +42,10 @@ export class CalendarPage {
 
 	viewDate: any = new Date();
 
+  calendarList: User[] = [];
+
+  calendarId: string = null;
+
 	dayClicked(day): void {
 		var str = day.date.getMonth()+1 + '-' + day.date.getDate() + '-' + day.date.getFullYear();
 	  this.navCtrl.push(DayPage, str);
@@ -53,6 +57,8 @@ export class CalendarPage {
   eventsDB: FirebaseListObservable<any>;
 	constructor(public navCtrl: NavController, public db: AngularFireDatabase, public auth: Auth, public alerCtrl: AlertController) {
     this.eventsDB = db.list('/' + this.auth.user.userId + '/events');
+    this.calendarId = this.auth.user.userId;
+    this.calendarList = this.auth.getList();
     //can't console log this.events here because of async
   }
 
@@ -84,8 +90,9 @@ export class CalendarPage {
     this.fetchEvents();
   }
 
-  switchCalendar(id: string): void {
-    this.eventsDB = this.db.list('/' + string + '/events');
+  switchCalendar(): void {
+    console.log(this.calendarId);
+    this.eventsDB = this.db.list('/' + this.calendarId + '/events');
     this.fetchEvents();
   }
 
@@ -170,6 +177,8 @@ export class CalendarPage {
            }
           }
         }
+        console.log("hey");
+        console.log(cEvent);
         return cEvent; 
         });
     });

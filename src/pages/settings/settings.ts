@@ -3,6 +3,7 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { Auth } from '../../providers/auth.provider';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Observable } from 'rxjs/Rx';
+import { User} from '../../models/user.model';
 
 
 /**
@@ -35,12 +36,17 @@ export class SettingsPage {
 	add(): void {
 		let alert = this.alertCtrl.create({
 		    title:  'Add account',
-		    subTitle: 'Enter the person\'s user id',
+		    subTitle: 'Enter the person\'s user id and name',
 		    inputs: [
 		      {
 		        id: 'name',
+		        placeholder: 'Name',
+		      },
+		      {
+		        id: 'id',
 		        placeholder: 'User Id',
 		      }
+		      
 		      ],
 		    buttons: [
 		   
@@ -51,8 +57,11 @@ export class SettingsPage {
 		      {
 		        text: 'Add',
 		        handler: data => {
-		          	this.userWhitelist.push(data[0]);
-		          	console.log("Whitelist added: " + data[0]);
+		        	var u = new User();
+		        	u.givenName = data[0];
+		        	u.userId = data[1];
+		          	this.userWhitelist.push(u);
+		          	console.log("Whitelist added: " + data[0] + " " + data[1]);
 		        }
 		      }
 		    ]

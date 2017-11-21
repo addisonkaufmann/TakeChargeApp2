@@ -3,9 +3,11 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-        <ion-select class="light-select" (ionChange)="fakeSwitchCalendar();">
-          <ion-option selected>My Calendar</ion-option>
-          <ion-option >Aaron's Calendar</ion-option>
+        <ion-select class="light-select" [(ngModel)]="calendarId" (ionChange)="switchCalendar();">
+          <ion-option selected [value]="this.auth.user.userId">My Calendar</ion-option>
+          <ion-option *ngFor="let user of calendarList" [value]="user.userId">{{user.givenName}}'s Calendar</ion-option>
+          <!-- <ion-option selected>My Calendar</ion-option>
+          <ion-option >Aaron's Calendar</ion-option> -->
         </ion-select>
   </ion-navbar>
 </ion-header>
