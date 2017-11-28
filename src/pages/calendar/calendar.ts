@@ -92,8 +92,10 @@ export class CalendarPage {
   }
 
   switchCalendar(): void {
-    console.log(this.calendarId);
-    this.eventsDB = this.db.list('/' + this.calendarId + '/events');
+    var temp = "/" + this.calendarId.trim() + "/events";
+    console.log(temp);
+    this.eventsDB = null;
+    this.eventsDB = this.db.list(temp);
     this.fetchEvents();
   }
 
@@ -134,6 +136,9 @@ export class CalendarPage {
     //   console.log(this.events);
     // });
     // this.events = Array.from(this.events);
+    while(this.eventsDB == null) {
+      console.log("I'm unhappy.");
+    }
     this.events$ = this.eventsDB.map((item) => {
       return item.map((node) => {
         var cEvent: CalendarEvent;
