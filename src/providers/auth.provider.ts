@@ -27,7 +27,7 @@ export class Auth {
     return this.user;
   }
 
-  getList(): string[] { 
+  getList(): User[] { 
     return this.whitelist;
   }
 

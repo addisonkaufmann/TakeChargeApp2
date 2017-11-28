@@ -69,7 +69,7 @@ export class SettingsPage {
 		  alert.present();
 	};
 
-  userWhitelist: string[];
+  userWhitelist: User[];
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public auth: Auth, public db: AngularFireDatabase) {
   	this.userWhitelist = this.auth.whitelist;
   }

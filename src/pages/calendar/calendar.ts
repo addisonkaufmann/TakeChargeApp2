@@ -8,6 +8,7 @@ import { CustomDateFormatter } from '../../providers/custom-date-formatter.provi
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Auth } from '../../providers/auth.provider';
 import { Observable } from 'rxjs/Rx';
+import { User } from '../../models/user.model';
 
 import { AlertController } from 'ionic-angular';
 
@@ -177,8 +178,6 @@ export class CalendarPage {
            }
           }
         }
-        console.log("hey");
-        console.log(cEvent);
         return cEvent; 
         });
     });
